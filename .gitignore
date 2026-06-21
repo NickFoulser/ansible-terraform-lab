@@ -1,17 +1,13 @@
 # Terraform
 .terraform/
 *.tfstate
-*.tfstate.backup
+*.tfstate.*
+*.tfplan
+tfplan
+
+# Terraform variables
 *.tfvars
-
-# Ansible
-*.retry
-
-# Mac
-.DS_Store
-
-# VS Code
-.vscode/
+*.tfvars.json
 
 # SSH keys
 *.pem
