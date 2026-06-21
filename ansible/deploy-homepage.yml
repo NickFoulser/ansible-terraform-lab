@@ -1,0 +1,16 @@
+---
+- name: Deploy custom homepage
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Create homepage
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <body>
+            <h1>Hello from Terraform and Ansible</h1>
+            <p>Built by Nick</p>
+          </body>
+          </html>
