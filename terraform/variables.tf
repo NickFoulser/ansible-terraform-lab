@@ -1,5 +1,5 @@
 variable "aws_region" {
-  default = "eu-west-2"
+  default = "eu-north-1"
 }
 
 variable "instance_type" {
