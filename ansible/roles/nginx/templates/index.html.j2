@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>{{ site_title }}</title>
+</head>
+
+<body>
+
+<h1>{{ site_title }}</h1>
+
+<p>Built by {{ owner_name }}</p>
+
+<p>Host: {{ inventory_hostname }}</p>
+
+<p>Operating System: {{ ansible_facts["distribution"] }}</p>
+
+<p>Kernel: {{ ansible_facts["kernel"] }}</p>
+
+<p>Architecture: {{ ansible_facts["architecture"] }}</p>
+
+</body>
+</html>
