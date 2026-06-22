@@ -3,14 +3,11 @@
   hosts: web
   become: true
 
+  vars_files:
+    - vars.yml
+
   tasks:
-    - name: Create homepage
-      ansible.builtin.copy:
+    - name: Deploy homepage template
+      ansible.builtin.template: 
+        src: templates/index.html.j2
         dest: /var/www/html/index.html
-        content: |
-          <html>
-          <body>
-            <h1>Hello from Terraform and Ansible</h1>
-            <p>Built by Nick</p>
-          </body>
-          </html>
