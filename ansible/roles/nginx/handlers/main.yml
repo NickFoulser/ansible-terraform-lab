@@ -1,0 +1,12 @@
+---
+# Handlers are special tasks.
+#
+# They run only when notified by a changed task.
+#
+# Even if multiple tasks notify this handler,
+# Ansible executes it once at the end of the play.
+
+- name: Restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
