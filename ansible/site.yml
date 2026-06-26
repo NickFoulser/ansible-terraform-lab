@@ -1,4 +1,10 @@
 ---
+# Main playbook entry point.
+#
+# Targets the "web" group from inventory.ini.
+# become: true means use sudo for all tasks.
+# Roles allow us to organise Ansible code into reusable components.
+
 - hosts: web
   become: true
 

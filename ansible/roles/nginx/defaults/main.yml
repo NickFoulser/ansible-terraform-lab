@@ -1,2 +1,9 @@
+# Default variables for the nginx role.
+#
+# These can be overridden by:
+# - inventory variables
+# - playbook variables
+# - extra vars (-e)
+
 site_title: "Terraform and Ansible Lab"
 owner_name: "Nick"

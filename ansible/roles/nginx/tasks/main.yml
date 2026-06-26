@@ -1,4 +1,16 @@
 ---
+# Tasks execute in order from top to bottom.
+#
+# Ansible modules are idempotent, meaning they only make
+# changes when required to reach the desired state.
+# Ensure nginx is installed.
+#
+# update_cache=true is similar to running:
+#   sudo apt update
+#
+# state=present means:
+#   "Install if missing"
+
 - name: Install nginx
   ansible.builtin.apt:
     name: nginx
@@ -15,3 +27,4 @@
   ansible.builtin.template:
     src: index.html.j2
     dest: /var/www/html/index.html
+  notify: Restart nginx
