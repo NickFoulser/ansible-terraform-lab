@@ -9,6 +9,16 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-*-x86_64"]
+  }
+}
+
 resource "aws_security_group" "web" {
   name = "ansible-lab-sg"
 
@@ -34,13 +44,25 @@ resource "aws_security_group" "web" {
   }
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "ubuntu_web" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.web.id]
 
   tags = {
-    Name = "ansible-lab"
+    Name = "ubuntu-web"
   }
 }
+
+resource "aws_instance" "amazon_web" {
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = var.instance_type
+  key_name               = var.key_name
+  vpc_security_group_ids = [aws_security_group.web.id]
+
+  tags = {
+    Name = "amazonlinux-web"
+  }
+}
+
