@@ -1,0 +1,42 @@
+---
+# Verify the server is healthy after patching.
+
+# Check that the nginx service is running.
+
+- name: Gather nginx service information
+  ansible.builtin.systemd:
+    name: nginx
+  register: nginx_service
+
+# Display the service state.
+
+- name: Display nginx status
+  ansible.builtin.debug:
+    msg: "Nginx is {{ nginx_service.status.ActiveState }}"
+
+# Fail immediately if nginx is not active.
+
+- name: Ensure nginx is running
+  ansible.builtin.assert:
+    that:
+      - nginx_service.status.ActiveState == "active"
+    fail_msg: "Nginx is NOT running after patching."
+    success_msg: "Nginx is running."
+
+- name: Check homepage
+  ansible.builtin.uri:
+    url: http://localhost
+    status_code: 200
+  register: homepage
+  when: not ansible_check_mode
+
+- name: Show homepage response
+  ansible.builtin.debug:
+    var: homepage
+
+- name: Display summary
+  ansible.builtin.debug:
+    msg:
+      - "Patch completed successfully."
+      - "Nginx status: {{ nginx_service.status.ActiveState }}"
+      - "Homepage returned HTTP {{ homepage.get('status', 'skipped in check mode') }}"

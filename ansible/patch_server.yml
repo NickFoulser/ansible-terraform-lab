@@ -1,0 +1,21 @@
+- name: Demonstration patch workflow
+  hosts: web
+  become: true
+
+  tasks:
+
+    - name: Run pre-checks
+      ansible.builtin.import_tasks: tasks/pre_checks.yml
+
+    - name: Refresh package cache if required
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Upgrade installed packages
+      ansible.builtin.apt:
+        upgrade: safe
+        update_cache: false
+
+    - name: Run verification
+      ansible.builtin.import_tasks: tasks/verify.yml
