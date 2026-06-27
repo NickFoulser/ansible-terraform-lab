@@ -1,0 +1,10 @@
+---
+# Display information about the target host before making changes.
+
+- name: Show operating system
+  ansible.builtin.debug:
+    msg: "Operating System: {{ ansible_facts['distribution'] }}"
+
+- name: Show hostname
+  ansible.builtin.debug:
+    msg: "Hostname: {{ inventory_hostname }}"
