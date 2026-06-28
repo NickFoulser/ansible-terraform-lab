@@ -1,0 +1,4 @@
+---
+site_title: Ubuntu Web Server
+package_manager: apt
+nginx_document_root: /var/www/html

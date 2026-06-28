@@ -1,0 +1,4 @@
+---
+site_title: Amazon Linux Web Server
+package_manager: dnf
+nginx_document_root: /usr/share/nginx/html
