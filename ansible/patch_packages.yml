@@ -1,0 +1,20 @@
+---
+- name: Install curl on all servers
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Install curl on Debian systems
+      ansible.builtin.apt:
+        name: curl
+        state: present
+      when:
+        - ansible_facts['os_family'] == 'Debian'
+
+    - name: Install curl on RedHat systems
+      ansible.builtin.dnf:
+        name: curl
+        state: present
+      when:
+        - ansible_facts['os_family'] == 'RedHat'

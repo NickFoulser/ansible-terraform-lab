@@ -1,3 +1,4 @@
+---
 - name: Demonstration patch workflow
   hosts: web
   become: true
@@ -7,15 +8,37 @@
     - name: Run pre-checks
       ansible.builtin.import_tasks: tasks/pre_checks.yml
 
-    - name: Refresh package cache if required
+    # Debian / Ubuntu
+    - name: Refresh apt cache
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
+      when:
+        - ansible_facts['os_family'] == 'Debian'
 
-    - name: Upgrade installed packages
+    - name: Upgrade installed packages on Debian systems
       ansible.builtin.apt:
         upgrade: safe
         update_cache: false
+      when:
+        - ansible_facts['os_family'] == 'Debian'
+
+    # RedHat / Amazon Linux
+    - name: Refresh dnf cache
+      ansible.builtin.dnf:
+        update_cache: true
+      when:
+        - ansible_facts['os_family'] == 'RedHat'
+
+    - name: Upgrade installed packages on RedHat systems
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+      when:
+        - ansible_facts['os_family'] == 'RedHat'
+
+    - name: Run reboot workflow
+      ansible.builtin.import_tasks: tasks/reboot.yml
 
     - name: Run verification
       ansible.builtin.import_tasks: tasks/verify.yml
