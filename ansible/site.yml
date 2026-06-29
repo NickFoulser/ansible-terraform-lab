@@ -12,4 +12,6 @@
 
   roles:
     - common
+    - users
     - nginx
+

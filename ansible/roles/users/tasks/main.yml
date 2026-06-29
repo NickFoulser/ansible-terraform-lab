@@ -1,0 +1,25 @@
+---
+
+- name: Create admins group
+  ansible.builtin.group:
+    name: admins
+    state: present
+
+- name: Ensure admin users exist
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups: admins
+    append: true
+    shell: "{{ item.shell }}"
+    state: present
+  loop: "{{ admin_users }}"
+
+- name: Ensure admin users have sudo privileges
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/admins
+    content: '%admins ALL=(ALL) NOPASSWD: ALL'
+    owner: root
+    group: root
+    mode: '0440'
+    validate: '/usr/sbin/visudo -cf %s'
+ 

@@ -6,18 +6,6 @@
     name: "{{ common_packages }}"
     state: present
 
-- name: Create admins group
-  ansible.builtin.group:
-    name: admins
-    state: present
-
-- name: Create support user
-  ansible.builtin.user:
-    name: support
-    groups: admins
-    append: true
-    shell: /bin/bash
-
 - name: Create message of the day
   ansible.builtin.copy:
     dest: /etc/motd
