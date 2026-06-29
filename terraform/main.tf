@@ -52,6 +52,8 @@ resource "aws_instance" "ubuntu_web" {
 
   tags = {
     Name = "ubuntu-web"
+    Environment = "test"
+    OS = "ubuntu"
   }
 }
 
@@ -63,6 +65,8 @@ resource "aws_instance" "amazon_web" {
 
   tags = {
     Name = "amazonlinux-web"
+    Environment = "prod"
+    OS = "amazonlinux"
   }
 }
 
