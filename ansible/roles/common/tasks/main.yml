@@ -1,0 +1,30 @@
+---
+# Install packages that every server should have.
+
+- name: Install common packages
+  ansible.builtin.package:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: Create admins group
+  ansible.builtin.group:
+    name: admins
+    state: present
+
+- name: Create support user
+  ansible.builtin.user:
+    name: support
+    groups: admins
+    append: true
+    shell: /bin/bash
+
+- name: Create message of the day
+  ansible.builtin.copy:
+    dest: /etc/motd
+    content: |
+      ************************************
+      Managed by Ansible
+      Owner: {{ owner_name }}
+      Host: {{ inventory_hostname }}
+      OS: {{ ansible_facts['distribution'] }}
+      ************************************

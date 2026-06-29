@@ -5,8 +5,11 @@
 # become: true means use sudo for all tasks.
 # Roles allow us to organise Ansible code into reusable components.
 
-- hosts: web
+
+- name: Configure web servers
+  hosts: web
   become: true
 
   roles:
+    - common
     - nginx
