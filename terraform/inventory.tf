@@ -1,10 +1,10 @@
 resource "local_file" "ansible_inventory" {
   content = <<EOF
 [ubuntu]
-${aws_instance.ubuntu_web.public_ip} ansible_user=ubuntu
+${aws_instance.ubuntu_web.public_ip} ansible_user=ubuntu server_environment=${aws_instance.ubuntu_web.tags["Environment"]} server_hostname=${aws_instance.ubuntu_web.tags["Name"]}
 
 [amazon]
-${aws_instance.amazon_web.public_ip} ansible_user=ec2-user
+${aws_instance.amazon_web.public_ip} ansible_user=ec2-user server_environment=${aws_instance.amazon_web.tags["Environment"]} server_hostname=${aws_instance.amazon_web.tags["Name"]}
 
 [web:children]
 ubuntu

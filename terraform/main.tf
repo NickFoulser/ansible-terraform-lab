@@ -51,20 +51,21 @@ resource "aws_instance" "ubuntu_web" {
   vpc_security_group_ids = [aws_security_group.web.id]
 
   tags = {
-    Name = "ubuntu-web"
+    Name = "tst-web01"
     Environment = "test"
     OS = "ubuntu"
   }
 }
 
 resource "aws_instance" "amazon_web" {
-  ami                    = data.aws_ami.amazon_linux.id
+ # ami                    = data.aws_ami.amazon_linux.id
+  ami = "ami-0c4499584c001b49c"
   instance_type          = var.instance_type
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.web.id]
 
   tags = {
-    Name = "amazonlinux-web"
+    Name = "prd-web01"
     Environment = "prod"
     OS = "amazonlinux"
   }
