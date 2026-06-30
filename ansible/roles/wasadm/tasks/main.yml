@@ -19,8 +19,8 @@
     path: /apps/was
     state: directory
     owner: wasadm
-    group: wasadm
-    mode: '0755'
+    group: wasdeploy 
+    mode: '2775'
 
 - name: Allow admins to become wasadm
   ansible.builtin.copy:

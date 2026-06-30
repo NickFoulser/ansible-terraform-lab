@@ -1,2 +1,6 @@
 ---
 owner_name: Nick Foulser
+
+app_users:
+  - name: deploy
+    shell: /bin/bash
