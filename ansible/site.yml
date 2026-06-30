@@ -13,5 +13,6 @@
   roles:
     - common
     - users
+    - wasadm
     - nginx
 

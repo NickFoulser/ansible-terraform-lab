@@ -16,3 +16,27 @@
       Host: {{ inventory_hostname }}
       OS: {{ ansible_facts['distribution'] }}
       ************************************
+
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ server_hostname }}"
+
+- name: Configure PROD prompt
+  ansible.builtin.copy:
+    dest: /etc/profile.d/prompt.sh
+    content: |
+      export PS1='\[\e[31m\][PROD \u@\h ${PWD}]\$\[\e[0m\] '
+    owner: root
+    group: root
+    mode: '0644'
+  when: server_environment == "prod"
+
+- name: Configure TEST prompt
+  ansible.builtin.copy:
+    dest: /etc/profile.d/prompt.sh
+    content: |
+      export PS1='\[\e[32m\][TEST \u@\h ${PWD}]\$\[\e[0m\] ' 
+    owner: root
+    group: root
+    mode: '0644'
+  when: server_environment == "test"

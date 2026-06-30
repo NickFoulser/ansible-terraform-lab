@@ -1,0 +1,33 @@
+
+---
+- name: Create wasadm group
+  ansible.builtin.group:
+    name: wasadm
+    state: present
+
+- name: Create wasadm user
+  ansible.builtin.user:
+    name: wasadm
+    group: wasadm
+    shell: /bin/bash
+    home: /apps/was
+    create_home: false
+    state: present
+
+- name: Create application directory
+  ansible.builtin.file:
+    path: /apps/was
+    state: directory
+    owner: wasadm
+    group: wasadm
+    mode: '0755'
+
+- name: Allow admins to become wasadm
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/wasadm
+    content: |
+      %admins ALL=(wasadm) NOPASSWD: ALL
+    owner: root
+    group: root
+    mode: '0440'
+    validate: '/usr/sbin/visudo -cf %s'
