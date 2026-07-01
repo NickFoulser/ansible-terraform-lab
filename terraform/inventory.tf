@@ -6,6 +6,9 @@ ${aws_instance.ubuntu_web.public_ip} ansible_user=ubuntu server_environment=${aw
 [amazon]
 ${aws_instance.amazon_web.public_ip} ansible_user=ec2-user server_environment=${aws_instance.amazon_web.tags["Environment"]} server_hostname=${aws_instance.amazon_web.tags["Name"]}
 
+[jenkins]
+${aws_instance.jenkins.public_ip} ansible_user=ec2-user server_environment=${aws_instance.jenkins.tags["Environment"]} server_hostname=${aws_instance.jenkins.tags["Name"]}
+
 [web:children]
 ubuntu
 amazon
