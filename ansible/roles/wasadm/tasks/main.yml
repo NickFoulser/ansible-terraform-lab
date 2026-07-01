@@ -31,3 +31,11 @@
     group: root
     mode: '0440'
     validate: '/usr/sbin/visudo -cf %s'
+
+- name: Give ops group read access to /apps/was
+  ansible.posix.acl:
+    path: /apps/was
+    entity: ops
+    etype: group
+    permissions: rx
+    state: present

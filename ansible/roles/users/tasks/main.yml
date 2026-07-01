@@ -37,4 +37,17 @@
     state: present
   loop: "{{ app_users }}"
 
+- name: Create ops group
+  ansible.builtin.group:
+    name: ops
+    state: present
+
+- name: Ensure ops users exist
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups: ops
+    append: true
+    shell: "{{ item.shell }}"
+    state: present
+  loop: "{{ ops_users }}"
 
