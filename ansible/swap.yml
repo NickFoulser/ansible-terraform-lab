@@ -1,0 +1,7 @@
+---
+- name: Configure swap
+  hosts: jenkins
+  become: true
+
+  roles:
+    - swap

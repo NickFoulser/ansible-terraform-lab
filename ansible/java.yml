@@ -1,0 +1,7 @@
+---
+- name: Install Java
+  hosts: jenkins
+  become: true
+
+  roles:
+    - java

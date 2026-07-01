@@ -1,0 +1,36 @@
+---
+- name: Gather swap file information
+  stat:
+    path: "{{ swap_file }}"
+  register: swapfile
+
+- name: Create swap file
+  command: "fallocate -l {{ swap_size }} {{ swap_file }}"
+  when: not swapfile.stat.exists or swapfile.stat.size == 0
+
+
+- name: Set swap file permissions
+  file:
+    path: "{{ swap_file }}"
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: Create swap area
+  command: "mkswap {{ swap_file }}"
+  when: not swapfile.stat.exists or swapfile.stat.size == 0
+
+- name: Enable swap
+  command: "swapon {{ swap_file }}"
+  when:
+    - ansible_facts['swaptotal_mb'] == 0
+  changed_when:
+    - ansible_facts['swaptotal_mb'] == 0
+
+- name: Persist swap in fstab
+  mount:
+    name: none
+    src: "{{ swap_file }}"
+    fstype: swap
+    opts: sw
+    state: present
