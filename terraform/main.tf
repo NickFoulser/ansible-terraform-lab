@@ -84,6 +84,12 @@ resource "aws_instance" "jenkins" {
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.web.id]
 
+    root_block_device {
+
+    volume_size = 8
+
+  }
+
   tags = {
     Name        = "jenkins01"
     Environment = "lab"

@@ -1,0 +1,16 @@
+---
+- name: Install Git
+  dnf:
+    name: git
+    state: present
+
+- name: Enable EPEL
+  dnf:
+    name: epel-release
+    state: present
+    ignore-errors: true
+
+- name: Install Ansible
+  dnf: 
+    name: ansible-core
+    state: present
